@@ -1,0 +1,56 @@
+<head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript" src="top10.js"></script>
+    <script type="text/javascript" src="covid19.js"></script>
+</head>
+<body>
+
+<div id="top10" style="width:2000px;height:800px;"></div>
+<div id="covid19" style="width:1550px;height:800px;"></div>
+</body>
+<script>
+	TOP10 = document.getElementById('top10');
+    COVID19 = document.getElementById('covid19');
+	layout = {
+        margin:
+        {
+            t: 100
+        },
+
+        title: {
+            text: 'Top 10 Causes of Death',
+            font: {
+               /* family: 'Courier New, monospace',*/
+                size: 24
+            },
+            xref: 'paper',
+            x: 0.05,
+        },
+
+        xaxis: {
+            title: {
+                text: 'Date',
+                font: {
+                   /* family: 'Courier New, monospace',*/
+                    size: 18,
+                    color: '#7f7f7f'
+                }
+            },
+        },
+        yaxis: {
+            range: [0,200000],
+            title: {
+                text: 'Monthly Deaths',
+                font: {
+                   /* family: 'Courier New, monospace',*/
+                    size: 18,
+                    color: '#7f7f7f'
+                }
+            }
+        }
+    }
+	Plotly.newPlot( TOP10, top10, layout );
+	layout.title.text = "SARS-CoV-2 (covid-19)"
+    Plotly.newPlot( COVID19, covid19, layout );
+
+</script>
