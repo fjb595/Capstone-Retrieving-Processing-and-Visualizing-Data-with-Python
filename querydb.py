@@ -8,9 +8,12 @@ import jsons
 
 from mytrace import Trace
 
+# query the sqllite db and create the javascript file expected by the visualization code in
+# top15.html.
+
 # the db contains the top 15 deaths for each month, which means the list of causes can
-# potentially vary.  In order to create a reasonable chart I select the top 10 causes for
-# the entire 20 year period
+# potentially vary from month to month.  In order to create a reasonable chart I
+# select the top 10 causes for the entire 20 year period
 
 query = 'SELECT t1.date, t2.rank, t1.cause, t1.deaths '\
 '        FROM top15cod AS t1'\
@@ -26,9 +29,10 @@ query = 'SELECT t1.date, t2.rank, t1.cause, t1.deaths '\
 with sqlite3.connect('cdc.sqlite') as cxn:
     dict = pd.read_sql_query( query,cxn).to_dict()
 
-# write serialized representation of required data structure for top10.html
+# write serialized representation of required javascript data structure for top10.html
 with open('top10.js','w') as f:
     f.write("top10={};\n".format(
+        # create list of objects, one per trace
         jsons.dumps([ Trace(dict['cause'][i],
                     [dict['date'][l*10] for l in range(240)],
                     [dict['deaths'][l*10+i] for l in range(240)])

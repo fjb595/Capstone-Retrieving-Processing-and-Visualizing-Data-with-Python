@@ -5,16 +5,17 @@
 </head>
 <body>
 
-<div id="top10" style="width:2000px;height:800px;"></div>
-<div id="covid19" style="width:1550px;height:800px;"></div>
+<div id="top10" style="width:1500px;height:800px;float:left"></div>
+<div id="covid19" style="width:150px;height:800px;float:left"></div>
 </body>
 <script>
 	TOP10 = document.getElementById('top10');
     COVID19 = document.getElementById('covid19');
-	layout = {
+	top10layout = {
         margin:
         {
-            t: 100
+            t: 100,
+            r: 0
         },
 
         title: {
@@ -24,7 +25,7 @@
                 size: 24
             },
             xref: 'paper',
-            x: 0.05,
+            x: 0.5,
         },
 
         xaxis: {
@@ -47,10 +48,35 @@
                     color: '#7f7f7f'
                 }
             }
+        },
+        legend: {
+            yanchor: "top",
+            y: .99,
+            xanchor: "left",
+            x: 0.01
         }
     }
-	Plotly.newPlot( TOP10, top10, layout );
-	layout.title.text = "SARS-CoV-2 (covid-19)"
-    Plotly.newPlot( COVID19, covid19, layout );
+    covid19layout= {
+        margin:
+        {
+            t: 100,
+            l: 0
+        },
+        title: {
+            text: 'SARS-CoV-2'
+        },
+        xaxis: {
+           /* visible: false*/
+        },
+        yaxis: {
+            visible: false,
+            range: [0,200000]
+        }
+
+    }
+	Plotly.newPlot( TOP10, top10, top10layout );
+	//layout.title.text = "SARS-CoV-2 (covid-19)"
+    fig=Plotly.newPlot( COVID19, covid19, covid19layout);
+
 
 </script>
